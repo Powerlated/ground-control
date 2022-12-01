@@ -3,6 +3,7 @@ import tomli
 from data_controllers.iliad_data_controller import IliadDataController
 from grapher.grapher import Grapher
 from iliad.arm_control import ArmControl
+import logging
 
 class App:
 
@@ -12,6 +13,7 @@ class App:
     TAG_CONFIG_WINDOW = 'app.config_window'
 
     def __init__(self) -> None:
+        self.logger = logging.getLogger('ground_control')
 
         # Start UI:
         gui.create_context()
