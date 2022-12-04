@@ -16,6 +16,7 @@ class App:
         self.logger = logging.getLogger('ground_control')
 
         # Start UI:
+        self.logger.info('Initializing GUI...')
         gui.create_context()
         gui.create_viewport(title='Iliad Ground Control', width=600, height=300)
         gui.setup_dearpygui()
@@ -24,7 +25,7 @@ class App:
             primary_font = gui.add_font('assets/fonts/open_sans/OpenSans-VariableFont_wdth,wght.ttf', 16)
             gui.bind_font(primary_font)
 
-
+        self.logger.info('Creating main window...')
         with gui.window(tag=App.TAG_MAIN_WINDOW):
 
             with gui.menu_bar(tag=App.TAG_MAIN_MENU):
@@ -44,11 +45,14 @@ class App:
                     gui.add_menu_item(label='About', callback=None)
             gui.set_primary_window(App.TAG_MAIN_WINDOW, True)
 
+            # Create components
+            self.logger.info('Initializing components...')
             self.iliad = IliadDataController('iliad_data_controller')
             self.grapher = Grapher('grapher', self.iliad)
             self.arm_control = ArmControl('armctl', self.iliad)
 
         # Init config menu:
+        self.logger.info('Creating config menu...')
         with gui.window(label='Config', tag=App.TAG_CONFIG_WINDOW, min_size=(512, 512)):
             # Add categories and corresponding child windows:
             with gui.tree_node(label='General'):
